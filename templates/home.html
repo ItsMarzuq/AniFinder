@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniFinder - Homepage</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <style>
+        .slick-dots li button:before {
+            color: #bbb; 
+            opacity: 0.5; 
+        }
+        .slick-dots li.slick-active button:before {
+            color: #f10b0b; 
+            opacity: 1; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <h1><a href="/">AniFinder</a></h1>
+                <a href="/">Home</a>
+                <a href="/wishlist">Wishlist</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search" method="get">
+                    <input type="text" name="query" placeholder="Search for an anime...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Top Anime</h2>
+        <div class="carousel" id="top-anime-carousel">
+            {% for anime in top_anime %}
+                <div class="carousel-item">
+                    <a href="/details/{{ anime['mal_id'] }}">
+                        <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}">
+                        <p>{{ anime['title'] }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Upcoming Anime</h2>
+        <div class="carousel" id="upcoming-anime-carousel">
+            {% for anime in upcoming_anime %}
+                <div class="carousel-item">
+                    <a href="/details/{{ anime['mal_id'] }}">
+                        <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}">
+                        <p>{{ anime['title'] }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function(){
+            $('#top-anime-carousel').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true,
+            });
+
+            $('#upcoming-anime-carousel').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true,
+            });
+        });
+    </script>
+</body>
+</html>

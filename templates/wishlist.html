@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniFinder - Wishlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <h1><a href="/">AniFinder</a></h1>
+                <a href="/">Home</a>
+                <a href="/wishlist">Wishlist</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search" method="get">
+                    <input type="text" name="query" placeholder="Search for an anime...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="wishlist">
+            <h2>Your Wishlist</h2>
+            <div class="wishlist-container">
+                {% for anime in wishlist %}
+                    <div class="wishlist-item">
+                        <a href="/details/{{ anime['mal_id'] }}">
+                            <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}">
+                            <h3>{{ anime['title'] }}</h3>
+                        </a>
+                        <form action="{{ url_for('remove_from_wishlist', anime_id=anime['mal_id']) }}" method="post">
+                            <button type="submit" class="wishlist-remove-btn">Remove</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

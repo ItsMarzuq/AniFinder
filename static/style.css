@@ -1,0 +1,410 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: #f5f5f5;
+    background: rgb(0, 0, 0);
+}
+
+header {
+    background: hsla(0, 73%, 26%, 1);
+
+    background: linear-gradient(270deg, #731212 10%, hsla(0, 0%, 0%, 1) 100%);
+    
+    background: -moz-linear-gradient(270deg, hsla(0, 73%, 26%, 1) 10%, rgb(0, 0, 0) 100%);
+    
+    background: -webkit-linear-gradient(270deg, hsla(0, 73%, 26%, 1) 10%, hsla(0, 0%, 0%, 1) 100%);
+    
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#711212", endColorstr="#000000", GradientType=1 );
+
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left h1 a,
+.nav-left a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.nav-left a:hover {
+    text-decoration: underline;
+}
+
+.nav-right button {
+    padding: 8px 16px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f10b0b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-right button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%);
+    transition: transform 0.5s;
+    transform: translateX(-50%) translateY(-50%) scale(0);
+}
+
+.nav-right button:hover::before {
+    transform: translateX(-50%) translateY(-50%) scale(1);
+}
+
+.nav-right button:hover {
+    background-color: #e00a0a;
+    transform: scale(1.05);
+}
+
+.nav-right button:active {
+    background-color: #c00909;
+    transform: scale(0.95);
+}
+
+.nav-right input[type="text"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    outline: none;
+    font-size: 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-right input[type="text"]:focus {
+    border-color: #f10b0b;
+    box-shadow: 0 4px 8px rgba(241, 11, 11, 0.2);
+}
+
+
+h2 {
+    text-align: center;
+    margin-top: 40px;
+    color: inherit;
+    font-weight: 700;
+}
+
+.carousel-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.carousel-item {
+    text-align: center;
+    padding: 10px;
+}
+
+.carousel-item img {
+    width: 178px;
+    height: auto;
+    border-radius: 25px;
+    display: block;
+    margin: 0 auto 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 20px rgba(189, 8, 2, 0.3), 0 0 30px rgba(175, 7, 1, 0.192); /* Glow effect on hover */
+    animation: glow 1.5s infinite alternate; /* Apply animation */
+}
+
+.carousel-item p {
+    font-size: 16px;
+    color: inherit;
+    margin: 0;
+}
+
+.carousel-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 10px rgba(255, 30, 0, 0.5), 0 0 20px rgba(255, 30, 0, 0.3); }
+    50% { box-shadow: 0 0 15px rgb(255, 0, 0), 0 0 30px rgba(255, 0, 0, 0.7); }
+    100% { box-shadow: 0 0 20px rgba(255, 72, 0, 0.5), 0 0 20px rgba(255, 17, 0, 0.3); }
+}
+
+.results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.result-item {
+    background-color: #731212;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+
+
+.result-item h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+    color: inherit;
+}
+
+.result-item h2 a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.result-item h2 a:hover {
+    text-decoration: none;
+}
+
+.result-image {
+    margin-right: 20px;
+}
+
+.result-image img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.result-info {
+    flex-grow: 1;
+    font-size: 18px;
+}
+
+.result-info p {
+    margin: 5px 0;
+    color: inherit;
+}
+
+.ellipsis, .collapse {
+    color: #007BFF;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.ellipsis:hover, .collapse:hover {
+    text-decoration: underline;
+}
+
+.anime-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 70%;
+    background-color: #731212;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.anime-info .poster {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.anime-info .info {
+    max-width: 65%;
+}
+
+.anime-info .info h2 {
+    margin: 0 0 10px 0;
+    color: inherit;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.anime-info .info p {
+    margin: 5px 0;
+    color: inherit;
+    font-size: 18px;
+}
+
+.recommendations {
+    margin: 40px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.recommendations-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.recommendation-item {
+    background-color: #731212;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    width: 180px;
+}
+
+.recommendation-item img {
+    border-radius: 10px;
+    height: auto;
+    width: 100%;
+}
+
+.recommendation-item h3 {
+    color: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0 0;
+    text-decoration: none;
+}
+
+
+.anime-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.anime-item img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.anime-info {
+    flex-grow: 1;
+}
+
+.anime-info h2 {
+    margin: 0 0 10px 0;
+    color: inherit;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.anime-info p {
+    margin: 5px 0;
+    color: inherit;
+    font-size: 16px;
+}
+
+
+.info {
+    position: relative;
+    max-width: 65%;
+}
+
+.wishlist-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wishlist-icon {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.wishlist-icon svg {
+    width: 32px; 
+    height: 32px; 
+    transition: transform 0.3s ease;
+}
+
+.wishlist-icon:hover svg {
+    transform: scale(1.1); 
+}
+
+
+.wishlist {
+    margin: 40px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.wishlist-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.wishlist-item {
+    background-color: #731212;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    width: 180px;
+}
+
+.wishlist-item img {
+    border-radius: 10px;
+    height: auto;
+    width: 100%;
+}
+
+.wishlist-item h3 {
+    color: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0 0;
+    text-decoration: none;
+}
+
+.wishlist-remove-btn {
+    background-color: #dc3545; /* Red for remove */
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.wishlist-remove-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniFinder - Anime Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <h1><a href="/">AniFinder</a></h1>
+                <a href="/">Home</a>
+                <a href="/wishlist">Wishlist</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search" method="get">
+                    <input type="text" name="query" placeholder="Search for an anime...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="anime-info">
+            <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}" class="poster">
+            <div class="info">
+                <div class="wishlist-buttons">
+                    {% if is_in_wishlist %}
+                        <form action="{{ url_for('remove_from_wishlist', anime_id=anime['mal_id']) }}" method="post">
+                            <button type="submit" class="wishlist-icon remove">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                                    <path d="M400 480a16 16 0 01-10.63-4L256 357.41 122.63 476A16 16 0 0196 464V96a64.07 64.07 0 0164-64h192a64.07 64.07 0 0164 64v368a16 16 0 01-16 16z" fill="#28a745"/> <!-- Red for remove -->
+                                </svg>
+                            </button>
+                        </form>
+                    {% else %}
+                        <form action="{{ url_for('add_to_wishlist', anime_id=anime['mal_id']) }}" method="post">
+                            <button type="submit" class="wishlist-icon add">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                                    <path d="M400 480a16 16 0 01-10.63-4L256 357.41 122.63 476A16 16 0 0196 464V96a64.07 64.07 0 0164-64h192a64.07 64.07 0 0164 64v368a16 16 0 01-16 16z" fill="#696969"/> <!-- Green for add -->
+                                </svg>
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+                <h2>{{ anime['title'] }}</h2>
+                <p><strong>Synonyms:</strong> {{ anime.get('synonyms', ['None'])[0] }}</p>
+                <p><strong>Type:</strong> {{ anime['type'] }}</p>
+                <p><strong>Episodes:</strong> {{ anime['episodes'] }}</p>
+                <p><strong>Rating:</strong> {{ anime['rating'] }}</p>
+                <p><strong>Genres:</strong> 
+                    {% for genre in anime['genres'] %}
+                        {{ genre['name'] }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p><strong>Synopsis:</strong></p>
+                <p>{{ anime['synopsis'] }}</p>
+            </div>
+        </section>
+
+        <section class="recommendations">
+            <h2>Recommended Anime</h2>
+            <div class="recommendations-container">
+                {% for recommendation in recommendations %}
+                    <div class="recommendation-item">
+                        <a href="/details/{{ recommendation['mal_id'] }}">
+                            <img src="{{ recommendation['images']['jpg']['image_url'] }}" alt="{{ recommendation['title'] }}">
+                            <p>{{ recommendation['title'] }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniFinder - Search Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <h1><a href="/">AniFinder</a></h1>
+                <a href="/">Home</a>
+                <a href="/wishlist">Wishlist</a>
+            </div>
+            <div class="nav-right">
+                <form action="/search" method="get">
+                    <input type="text" name="query" placeholder="Search for an anime...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>  
+    <main>
+        <h2>Search Results for "{{ query }}"</h2>
+        <div class="results-container">
+            {% for anime in results %}
+                <div class="result-item">
+                    <div class="result-image">
+                        <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}">
+                    </div>
+                    <div class="result-info">
+                        <h2><a href="/details/{{ anime['mal_id'] }}">{{ anime['title'] }}</a></h2>
+                        <p><strong>Episodes:</strong> {{ anime['episodes'] }}</p>
+                        <p><strong>Rating:</strong> {{ anime['rating'] }}</p>
+                        <p><strong>Genres:</strong> 
+                            {% for genre in anime['genres'] %}
+                                {{ genre['name'] }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p><strong>Synopsis:</strong></p>
+                        <p class="synopsis" data-full-text="{{ anime['synopsis'] }}"></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function() {
+            $('.synopsis').each(function() {
+                const fullText = $(this).data('full-text');
+                const animeId = $(this).closest('.result-item').find('a').attr('href').split('/').pop();
+                if (fullText.length > 100) {
+                    const truncatedText = fullText.substring(0, 100);
+                    $(this).html(truncatedText + `... <a href="/details/${animeId}" class="read-more">[read more]</a>`);
+                } else {
+                    $(this).html(fullText);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

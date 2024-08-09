@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniFinder - Search Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>AniFinder</h1>
+        <nav>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Search Results for "{{ query }}"</h2>
+        <div class="results-container">
+            {% for anime in results %}
+                <div class="result-item">
+                    <h2><a href="/details/{{ anime['mal_id'] }}">{{ anime['title'] }}</a></h2>
+                    <div class="result-content">
+                        <div class="result-image">
+                            <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}">
+                        </div>
+                        <div class="result-info">
+                            <p class="synopsis" data-full-text="{{ anime['synopsis'] }}"></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function() {
+            $('.synopsis').each(function() {
+                const fullText = $(this).data('full-text');
+                const animeId = $(this).closest('.result-item').find('a').attr('href').split('/').pop();
+                if (fullText.length > 800) {
+                    const truncatedText = fullText.substring(0, 800);
+                    $(this).html(truncatedText + `<a href="/details/${animeId}" class="ellipsis">...</a>`);
+                } else {
+                    $(this).html(fullText);
+                }
+            });
+
+            $(document).on('click', '.ellipsis', function(event) {
+                event.preventDefault();
+                const synopsis = $(this).parent();
+                const fullText = synopsis.data('full-text');
+                const animeId = $(this).attr('href').split('/').pop();
+                synopsis.html(fullText + `<a href="/details/${animeId}" class="collapse"> [collapse]</a>`);
+            });
+
+            $(document).on('click', '.collapse', function(event) {
+                event.preventDefault();
+                const synopsis = $(this).parent();
+                const fullText = synopsis.data('full-text');
+                const animeId = $(this).attr('href').split('/').pop();
+                if (fullText.length > 800) {
+                    const truncatedText = fullText.substring(0, 800);
+                    synopsis.html(truncatedText + `<a href="/details/${animeId}" class="ellipsis">...</a>`);
+                } else {
+                    synopsis.html(fullText);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
